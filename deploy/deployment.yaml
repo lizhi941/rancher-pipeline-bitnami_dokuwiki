@@ -30,7 +30,7 @@ spec:
       volumes:
       - name: dokuwiki-data
         persistentVolumeClaim:
-                claimName: dokuwili_appdata
+                claimName: dokuwili-appdata
       imagePullSecrets:
       - name: pipeline-docker-registry
       containers:
