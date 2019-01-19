@@ -1,0 +1,11 @@
+stages:
+- name: Publish image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./debian-9/Dockerfile
+      buildContext: ./debian-9
+      tag: dokuwiki:${CICD_EXECUTION_SEQUENCE}
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deploy/deployment.yaml

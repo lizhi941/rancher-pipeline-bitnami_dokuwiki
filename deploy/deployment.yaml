@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dokuwiki-service
+spec:
+  selector:
+    app: dokuwiki
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dokuwiki
+  labels:
+    app: dokuwiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dokuwiki
+  template:
+    metadata:
+      labels:
+        app: dokuwiki
+    spec:
+      volumes:
+      - name: dokuwiki-data
+        persistentVolumeClaim:
+                claimName: dokuwili_appdata
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: dokuwiki
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        volumeMounts:
+           - name: dokuwiki-data
+             mountPath: "/bitnami"
+        ports:
+        - containerPort: 80
