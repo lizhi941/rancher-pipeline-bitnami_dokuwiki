@@ -7,9 +7,14 @@ spec:
     app: dokuwiki
   type: NodePort
   ports:
-    - protocol: TCP
+    - name: 80-http
+      protocol: TCP
       port: 80
       targetPort: 80
+    - name: 443-https
+      protocol: TCP
+      port: 443
+      targetPort: 443
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -41,3 +46,4 @@ spec:
              mountPath: "/bitnami"
         ports:
         - containerPort: 80
+        - containerPort: 443  
