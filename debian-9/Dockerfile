@@ -23,6 +23,7 @@ ENV APACHE_HTTPS_PORT_NUMBER="443" \
     DOKUWIKI_WIKI_NAME="Bitnami DokuWiki" \
     PATH="/opt/bitnami/apache/bin:/opt/bitnami/php/bin:/opt/bitnami/php/sbin:$PATH"
 
+RUN ["chmod","+x","/app-entrypoint.sh"]
 EXPOSE 80 443
 
 ENTRYPOINT [ "/app-entrypoint.sh" ]
